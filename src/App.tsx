@@ -1,17 +1,18 @@
+import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 function App() {
   return (
-    <div id='canvas-container'>
-      <Canvas>
+    <>
+      <Canvas camera={{ position: [3, 3, 3] }}>
+        <OrbitControls />
+        <color attach='background' args={['#333']} />
         <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshPhongMaterial />
+          <boxGeometry args={[0.5, 0.5, 0.5]} />
+          <meshNormalMaterial />
         </mesh>
-        <ambientLight intensity={0.1} />
-        <directionalLight position={[0, 0, 5]} color='red' />
       </Canvas>
-    </div>
+    </>
   );
 }
 

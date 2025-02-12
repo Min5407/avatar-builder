@@ -5,4 +5,5 @@ body,
 #root {
   height: 100%;
   margin: unset;
+  width: 100%;
 }
