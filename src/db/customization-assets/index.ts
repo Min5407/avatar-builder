@@ -1,33 +1,20 @@
 import { AssetCategoryType } from '../customization-groups';
 
-import Top01Thumbnail from '../../assets/thumbnails/top_01.png';
-import Top02Thumbnail from '../../assets/thumbnails/top_02.png';
-import Top03Thumbnail from '../../assets/thumbnails/top_03.png';
+import HeadThumbnail from '../../assets/head.jpg';
+import Head001Model from '../../assets/Head.001.glb?url';
 
 export type CustomizationAssetsType = {
   assetType: AssetCategoryType;
   name: string;
   thumbnailUrl: string;
-  modelUrl?: File;
+  modelUrl: string;
 };
 
 export const customizationAssetsData: CustomizationAssetsType[] = [
   {
-    assetType: 'Top',
-    name: 'Top_01',
-    thumbnailUrl: Top01Thumbnail,
-    modelUrl: undefined,
-  },
-  {
-    assetType: 'Top',
-    name: 'Top_02',
-    thumbnailUrl: Top02Thumbnail,
-    modelUrl: undefined,
-  },
-  {
-    assetType: 'Top',
-    name: 'Top_03',
-    thumbnailUrl: Top03Thumbnail,
-    modelUrl: undefined,
+    assetType: 'Head',
+    name: 'Head_01',
+    thumbnailUrl: HeadThumbnail,
+    modelUrl: Head001Model,
   },
 ];

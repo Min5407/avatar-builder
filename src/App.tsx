@@ -2,6 +2,7 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useConfigurationStore } from './store/configuration';
 import { cn } from './utils/type/tailwind';
+import Avatar from './components/avatar';
 
 function App() {
   const categoryList = useConfigurationStore((state) => state.categories);
@@ -9,7 +10,10 @@ function App() {
     (state) => state.currentCategory
   );
   const assetList = useConfigurationStore((state) => state.assets);
-  const { setCurrentCategory } = useConfigurationStore(
+  const customizationAssets = useConfigurationStore(
+    (state) => state.customizationAssets
+  );
+  const { setCurrentCategory, setCustomizationAssets } = useConfigurationStore(
     (state) => state.actions
   );
 
@@ -20,12 +24,10 @@ function App() {
     <div className='min-h-screen bg-[#333] flex flex-col'>
       <div className='flex-1 flex justify-center items-center'>
         <Canvas camera={{ position: [1, 1, 1] }}>
-          <OrbitControls />
           <color attach='background' args={['#333']} />
-          <mesh>
-            <boxGeometry args={[0.5, 0.5, 0.5]} />
-            <meshNormalMaterial />
-          </mesh>
+          <OrbitControls />
+
+          <Avatar />
         </Canvas>
       </div>
 
@@ -37,7 +39,7 @@ function App() {
                 key={category.position}
                 className={cn('text-lg font-semibold transition-colors', {
                   'text-sky-700':
-                    category.categoryType === currentCategory?.categoryType,
+                    category.categoryType === currentCategory.categoryType,
                 })}
               >
                 <button onClick={() => setCurrentCategory(category)}>
@@ -47,16 +49,43 @@ function App() {
             ))}
           </ul>
           <ul className='flex gap-4 px-6 pb-6 items-center '>
-            {selectedAssetList.map(({ name, thumbnailUrl }) => (
-              <li key={name}>
-                <img
-                  src={thumbnailUrl}
-                  alt='asset thumbnail'
-                  className='w-24 h-24 rounded-xl'
-                />
-                <span className='w-full text-center inline-block  text-slate-600'>
-                  {name}
-                </span>
+            {selectedAssetList.map((assets) => (
+              <li
+                key={assets.name}
+                className={cn('opacity-75 transition-all ', {
+                  'opacity-100':
+                    assets.name ===
+                    customizationAssets[currentCategory.categoryType]?.name,
+                })}
+              >
+                <button
+                  onClick={() =>
+                    setCustomizationAssets(currentCategory.categoryType, assets)
+                  }
+                >
+                  <img
+                    src={assets.thumbnailUrl}
+                    alt='asset thumbnail'
+                    className={cn('w-24 h-24 rounded-xl', {
+                      'border border-sky-700':
+                        assets.name ===
+                        customizationAssets[currentCategory.categoryType]?.name,
+                    })}
+                  />
+                  <span
+                    className={cn(
+                      'w-full text-center inline-block  text-slate-600',
+                      {
+                        'text-sky-700':
+                          assets.name ===
+                          customizationAssets[currentCategory.categoryType]
+                            ?.name,
+                      }
+                    )}
+                  >
+                    {assets.name}
+                  </span>
+                </button>
               </li>
             ))}
 
