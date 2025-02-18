@@ -20,8 +20,9 @@ function App() {
   const selectedAssetList = assetList.filter(
     (item) => item.assetType === currentCategory?.categoryType
   );
+
   return (
-    <div className='min-h-screen bg-[#333] flex flex-col'>
+    <div className='h-full bg-[#333] flex flex-col'>
       <div className='flex-1 flex justify-center items-center'>
         <Canvas camera={{ position: [1, 1, 1] }}>
           <color attach='background' args={['#333']} />
